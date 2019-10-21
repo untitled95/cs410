@@ -1,0 +1,62 @@
+
+@url = http://localhost:3001/api
+@json = Content-Type: application/json
+
+
+
+
+### show all users
+get {{url}}/users
+
+### get all posts   
+get {{url}}/posts
+
+### register
+post {{url}}/register
+{{json}}
+
+{
+    "username" : "user6",
+    "password" : "123456"
+}
+
+### login 
+post {{url}}/login
+{{json}}
+
+{
+    "username" : "user1",
+    "password" : "123456"
+}
+
+
+
+
+### Get person info
+get {{url}}/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYTUwZmY1M2VjN2UxMjQxZjA4NGIwZiIsImlhdCI6MTU3MTA5OTA5NH0.W5X_PqiOp5Drcdpw_ww021YvFOkaVMItTXHAOypRu6I
+
+
+###update person info
+get {{url}}/update
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYTUxMmQxZjM5ZGFkMjViMjY2MjZhYSIsImlhdCI6MTU3MTMzMTIzMH0.3JuXvE9JtEGOQjMIx2ifOdCOI-iGfEKFqyRyfc5MrT4
+{{json}}
+
+{
+    "username" : "blablabla"
+}
+
+
+###update person password
+get {{url}}/changePwd
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYTRmODlhODE5OWUyMWYxMjBiNWM3MiIsImlhdCI6MTU3MTA5MjY0MH0.btZQJZqAAqNjHpwVHNsdV04oF4XkMbSnjfgZi1fc_Ao
+{{json}}
+
+{
+    "password" : "123"
+}
+
+
+###admin get all users' info.
+get {{url}}/admin/profiles
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYTUxMmQxZjM5ZGFkMjViMjY2MjZhYSIsImlhdCI6MTU3MTEwMDI4Mn0.AJOldbgHrXHP5w0lmoG_aW1BVAyO1bd_pnsve6YzOKM
