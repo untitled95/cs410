@@ -11,6 +11,9 @@ const app = express();
 
 app.use(express.json());
 
+app.get('/',async(req,res)=>{
+    res.send(200);
+})
 
 //this api only debugging purpose, do not use this one in production 
 app.get('/api/users', async (req, res) => {
