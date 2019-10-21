@@ -26,20 +26,18 @@ const UserSchema = new mongoose.Schema({
 const PostSchema = new mongoose.Schema({
     title: {type: String},
     body: {type: String},
-    Category: {type: mongoose.SchemaTypes.ObjectId,ref: 'Category'},
-    user: {type: mongoose.SchemaTypes.ObjectId,ref:'User'},
+    user: {type: String},
+    takenBy: {type:String},
+    region: {type:String},
     createTime: {type: Date},
     updateTime: {type: Date}
 });
 
-const CategorySchema = new mongoose.Schema({
-    name: {type: String}
-})
+
 
 
 const User = mongoose.model('User', UserSchema);
 const Post = mongoose.model('Post', PostSchema);
-const Category = mongoose.model('Category', CategorySchema);
 
 // User.db.dropCollection('users');
 // Post.db.dropCollection('posts');
@@ -55,6 +53,6 @@ const Category = mongoose.model('Category', CategorySchema);
 //     createTime: Date()
 // });
 
-module.exports = { User,Post,Category }
+module.exports = { User,Post}
 
 

@@ -1,5 +1,5 @@
 
-@url = http://localhost:3001/api
+@url = http://localhost:80/api
 @json = Content-Type: application/json
 
 
@@ -11,13 +11,24 @@ get {{url}}/users
 ### get all posts   
 get {{url}}/posts
 
+
+### post something here
+post {{url}}/post
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYTUxMmQxZjM5ZGFkMjViMjY2MjZhYSIsImlhdCI6MTU3MTY5NjgwM30.ZxIA7q1fua3IqwgaXgkG9D8WxrPj58QzI9XzZOeZdkY
+{{json}}
+
+{
+    "title" : "my first  post",
+    "body" : "Hello World"
+}
+
 ### register
 post {{url}}/register
 {{json}}
 
 {
-    "username" : "user6",
-    "password" : "123456"
+    "username" : "admin",
+    "password" : "admin"
 }
 
 ### login 
@@ -26,7 +37,7 @@ post {{url}}/login
 
 {
     "username" : "user1",
-    "password" : "123456"
+    "password" : "123"
 }
 
 
@@ -49,7 +60,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYTUxMmQxZ
 
 ###update person password
 get {{url}}/changePwd
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYTRmODlhODE5OWUyMWYxMjBiNWM3MiIsImlhdCI6MTU3MTA5MjY0MH0.btZQJZqAAqNjHpwVHNsdV04oF4XkMbSnjfgZi1fc_Ao
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYTUxMmQxZjM5ZGFkMjViMjY2MjZhYSIsImlhdCI6MTU3MTY4Nzk4MH0.1ijgviB3NmjWeS1q6RIBqh6Ty1laRfPh06pdoDsEqTY
 {{json}}
 
 {

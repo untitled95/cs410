@@ -123,22 +123,48 @@ app.get('/api/update', auth, async (req, res) => {
 })
 
 app.get('/api/changePwd', auth, async (req, res) => {
-    const user = await User.updateOne(
-        { username: req.user.username },
-        {
-            password: require('bcrypt').hashSync(req.body.password, 10),
-            updateTime: Date()
-        },
-        function (err, result) {
-            if (err) {
-                res.sendStatus(404);
-            } else {
-                res.sendStatus(200);
-            }
+    try{
+        const user = await User.findOne({
+            username: req.user.username
+        })
+
+        if(req.body.password){
+            user.password = require('bcrypt').hashSync(req.body.password, 10)
         }
-    )
+
+        user.updateTime = new Date();
+        await user.save();
+        res.sendStatus(200);
+    }catch (err) {
+        res.sendStatus(404);
+    };
+    
 })
 
+// for normal user to post
+app.post('/api/post',auth, async (req,res)=>{
+    try{
+        const user = await User.findOne({
+            username: req.user.username
+        })
+        
+        
+        const post = new Post({
+            title: req.body.title,
+            body: req.body.body,
+            user: user.username
+        });
+        
+        post.createTime = new Date();
+        await post.save(); 
+        res.sendStatus(200);
+    }catch (err) {
+        res.sendStatus(403);
+    };
+})
+
+
+// 
 
 app.get('/api/posts', async (req, res) => {
 
