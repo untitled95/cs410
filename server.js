@@ -154,6 +154,6 @@ app.get('/api/posts', async (req, res) => {
     res.send(posts);
 })
 
-app.listen(3001, () => {
+app.listen(80, () => {
     console.log('http://localhost:80')
 });
