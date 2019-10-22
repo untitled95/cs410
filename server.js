@@ -152,7 +152,8 @@ app.post('/api/post',auth, async (req,res)=>{
         const post = new Post({
             title: req.body.title,
             body: req.body.body,
-            user: user.username
+            user: user.username,
+            
         });
         
         post.createTime = new Date();
@@ -172,6 +173,10 @@ app.get('/api/posts', async (req, res) => {
     //     {title: 'post1', body: 'body1', createTime: Date()},
     //     {title: 'post2', body: 'body2', createTime: Date()}
     // ])
+    // const posts = await Post.find({
+    //     archive: false
+    // });
+
     const posts = await Post.find();
     res.send(posts);
 })

@@ -13,7 +13,8 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
     password: {
-        type: String
+        type: String,
+        required: true
     },
     region: {type: String},
     favorite: {type: String},
@@ -30,7 +31,11 @@ const PostSchema = new mongoose.Schema({
     takenBy: {type:String},
     region: {type:String},
     createTime: {type: Date},
-    updateTime: {type: Date}
+    updateTime: {type: Date},
+    archive: {
+        type: [Boolean],
+        default: false
+    }
 });
 
 
