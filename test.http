@@ -18,9 +18,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYTUxMmQxZ
 {{json}}
 
 {
-    "title" : "my first  post",
-    "body" : "Hello World"
-    
+    "title" : "my first 2 post",
+    "body" : "Hello World"  
 }
 
 ### register
@@ -50,17 +49,17 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYTUwZmY1M
 
 
 ###update person info
-get {{url}}/update
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYTUxMmQxZjM5ZGFkMjViMjY2MjZhYSIsImlhdCI6MTU3MTMzMTIzMH0.3JuXvE9JtEGOQjMIx2ifOdCOI-iGfEKFqyRyfc5MrT4
+post {{url}}/update
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYTUxMmQxZjM5ZGFkMjViMjY2MjZhYSIsImlhdCI6MTU3MTg0ODM3NX0.iQrXSHkdArCq0HmrlDNWTi7BWgkx5_LMkFXlT8zDRU0
 {{json}}
 
 {
-    "username" : "blablabla"
+    "region" : "blablabla"
 }
 
 
 ###update person password
-get {{url}}/changePwd
+post {{url}}/changePwd
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYTUxMmQxZjM5ZGFkMjViMjY2MjZhYSIsImlhdCI6MTU3MTY4Nzk4MH0.1ijgviB3NmjWeS1q6RIBqh6Ty1laRfPh06pdoDsEqTY
 {{json}}
 

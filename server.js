@@ -29,8 +29,14 @@ app.post('/api/register', async (req, res) => {
         createTime: Date()
     });
 
-    await user.save();
-    res.send(user);
+    try{
+        await user.save();
+        res.sendStatus(200);
+    }catch(err){
+        res.sendStatus(409);
+    }
+    
+    
 });
 
 
@@ -94,7 +100,7 @@ app.get('/api/profile', auth, async (req, res) => {
 
 
 
-app.get('/api/update', auth, async (req, res) => {
+app.post('/api/update', auth, async (req, res) => {
 
     try {
 
@@ -114,7 +120,8 @@ app.get('/api/update', auth, async (req, res) => {
         user.updateTime = new Date();
 
         await user.save();
-        res.sendStatus(200);
+        
+        res.send(user).sendStatus(200);
     } catch (err) {
         res.sendStatus(404);
     };
@@ -122,7 +129,7 @@ app.get('/api/update', auth, async (req, res) => {
     // console.log(req.body);
 })
 
-app.get('/api/changePwd', auth, async (req, res) => {
+app.post('/api/changePwd', auth, async (req, res) => {
     try{
         const user = await User.findOne({
             username: req.user.username
