@@ -18,11 +18,11 @@ app.get('/api/users', async (req, res) => {
 });
 
 app.post('/api/register', async (req, res) => {
-    // console.log(req.body);
 
     const user = new User({
         username: req.body.username,
         password: require('bcrypt').hashSync(req.body.password, 10),
+        email: req.body.email,
         region: req.body.region,
         favorite: req.body.favorite,
         level: "normal",
@@ -46,7 +46,7 @@ app.post('/api/login', async (req, res) => {
     });
     if (!user) {
         return res.status(422).send({
-            message: 'Username not found'
+            message: 'wrong combination'
         })
     }
 
@@ -56,7 +56,7 @@ app.post('/api/login', async (req, res) => {
     )
     if (!isPasswordValid) {
         return res.status(422).send({
-            message: 'wrong password'
+            message: 'wrong combination'
         })
     }
     //generate token
@@ -72,25 +72,16 @@ app.post('/api/login', async (req, res) => {
 
 // decide who is the user login to the app
 const auth = async (req, res, next) => {
-    const raw = String(req.headers.authorization).split(' ').pop();
-    const { id } = jwt.verify(raw, SECRET);
-    req.user = await User.findById(id);
-    next()
-}
-
-
-
-//only for admin
-app.get('/api/admin/profiles', auth, async (req, res) => {
-    if (req.user.level != "admin") {
+    try{
+        const raw = String(req.headers.authorization).split(' ').pop();
+        const { id } = jwt.verify(raw, SECRET);
+        req.user = await User.findById(id);
+        next()  
+    }catch(err){
         res.sendStatus(403);
-    } else {
-        const users = await User.find()
-        res.send(users);
     }
-})
-
-
+   
+}
 
 app.get('/api/profile', auth, async (req, res) => {
 
@@ -100,15 +91,14 @@ app.get('/api/profile', auth, async (req, res) => {
 
 
 
+
 app.post('/api/update', auth, async (req, res) => {
 
     try {
 
         const user = await User.findOne({
-            username: req.user.username,
+            username: req.user.username
         });
-
-
         if(req.body.region){
             user.region = req.body.region;
         }
@@ -118,10 +108,9 @@ app.post('/api/update', auth, async (req, res) => {
         }
 
         user.updateTime = new Date();
-
-        await user.save();
         
-        res.send(user).sendStatus(200);
+        await user.save();
+        res.status(200).send(user);
     } catch (err) {
         res.sendStatus(404);
     };
@@ -172,7 +161,15 @@ app.post('/api/post',auth, async (req,res)=>{
 })
 
 
-
+//only for admin
+app.get('/api/admin/profiles', auth, async (req, res) => {
+    if (req.user.level != "admin") {
+        res.sendStatus(403);
+    } else {
+        const users = await User.find()
+        res.send(users);
+    }
+})
 
 app.get('/api/posts', async (req, res) => {
 

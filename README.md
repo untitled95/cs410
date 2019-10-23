@@ -45,10 +45,11 @@ In the json, I need username and password data.
 {{json}}
 
 {
-    "username" : "admin",
-    "password" : "admin"
+    "username" : "user1",
+    "password" : "123456",
+    "email" : "user1@test.com"
 }
-If duplicate username, code(409). On Success, code(200).
+If duplicate username or duplicate email, code(409). On Success, code(200).
 
 ### user login 
 `post {{url}}/login`

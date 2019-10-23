@@ -14,7 +14,7 @@ get {{url}}/posts
 
 ### post something here
 post {{url}}/post
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYTUxMmQxZjM5ZGFkMjViMjY2MjZhYSIsImlhdCI6MTU3MTY5NjgwM30.ZxIA7q1fua3IqwgaXgkG9D8WxrPj58QzI9XzZOeZdkY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYjBhNTEyMzExNTUwM2M4OGUyYmQ3NyIsImlhdCI6MTU3MTg1NzY4N30.tvl9a7irOJYCuW4q8oArlusiZbAQOIi8uy1AxramZZE
 {{json}}
 
 {
@@ -27,8 +27,8 @@ post {{url}}/register
 {{json}}
 
 {
-    "username" : "admin",
-    "password" : "admin"
+    "username" : "user1",
+    "password" : "123"
 }
 
 ### login 
