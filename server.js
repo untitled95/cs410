@@ -149,7 +149,7 @@ app.post('/api/post',auth, async (req,res)=>{
             title: req.body.title,
             body: req.body.body,
             user: user.username,
-            
+            region: req.body.region
         });
         
         post.createTime = new Date();
