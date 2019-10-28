@@ -22,7 +22,8 @@ describe('User register', function () {
             .set('Accept', 'application/json')
             .send({
                 username: "user1",
-                password: "123456"
+                password: "123456",
+                email: "user2@test.com"
             })
             .expect(409, done)
     })
@@ -90,47 +91,93 @@ describe('User login', function () {
 describe('user get their own profile', function () {
     it('should return user own profile', function (done) {
         api.get('/profile')
-        .set('Authorization', token)
-        .expect(200)
-        .end(function (err, res) {
-            expect(res.body).to.have.property('username');
-            expect(res.body.username).to.equal('user1');
-            expect(res.body).to.have.property('level');
-            expect(res.body.level).to.equal('normal');
-            done();
-        })
+            .set('Authorization', token)
+            .expect(200)
+            .end(function (err, res) {
+                expect(res.body).to.have.property('username');
+                expect(res.body.username).to.equal('user1');
+                expect(res.body).to.have.property('level');
+                expect(res.body.level).to.equal('normal');
+                done();
+            })
     })
     it('should return 403 if token was not received', function (done) {
         api.get('/profile')
-        .expect(403,done)
+            .expect(403, done)
     })
     it('should return 403 if token was invalided', function (done) {
         api.get('/profile')
-        .set('Authorization', 'someWrongToken')
-        .expect(403,done)
+            .set('Authorization', 'someWrongToken')
+            .expect(403, done)
     })
 })
 
 //update user profile
-describe('user update their own profile',function(){
-    it('can update single field',function(done){
+describe('user update their own profile', function () {
+    it('can update single field', function (done) {
         api.post('/update')
-        .set('Authorization', token)
-        .set('Accept', 'application/json')
+            .set('Authorization', token)
+            .set('Accept', 'application/json')
             .send({
                 region: "north"
             })
-        .expect(200)
-        .end(function (err, res) {
-            expect(res.body).to.have.property('username');
-            expect(res.body.username).to.equal('user1');
-            expect(res.body).to.have.property('level');
-            expect(res.body.level).to.equal('normal');
-            expect(res.body).to.have.property('email');
-            expect(res.body.email).to.equal('user1@test.com');
-            expect(res.body).to.have.property('region');
-            expect(res.body.region).to.equal('north');
-            done();
-        })
+            .expect(200)
+            .end(function (err, res) {
+                expect(res.body).to.have.property('username');
+                expect(res.body.username).to.equal('user1');
+                expect(res.body).to.have.property('level');
+                expect(res.body.level).to.equal('normal');
+                expect(res.body).to.have.property('email');
+                expect(res.body.email).to.equal('user1@test.com');
+                expect(res.body).to.have.property('region');
+                expect(res.body.region).to.equal('north');
+                done();
+            })
+    })
+    it('can update several field at same time', function (done) {
+        api.post('/update')
+            .set('Authorization', token)
+            .set('Accept', 'application/json')
+            .send({
+                region: "south",
+                favorite: "nothing"
+            })
+            .expect(200)
+            .end(function (err, res) {
+                expect(res.body).to.have.property('username');
+                expect(res.body.username).to.equal('user1');
+                expect(res.body).to.have.property('level');
+                expect(res.body.level).to.equal('normal');
+                expect(res.body).to.have.property('favorite');
+                expect(res.body.favorite).to.equal('nothing');
+                expect(res.body).to.have.property('email');
+                expect(res.body.email).to.equal('user1@test.com');
+                expect(res.body).to.have.property('region');
+                expect(res.body.region).to.equal('south');
+                done();
+            })
+    })
+    it('can ignore the wrong data from front end', function (done) {
+        api.post('/update')
+            .set('Authorization', token)
+            .set('Accept', 'application/json')
+            .send({
+                name: "errorName",
+                email: "errorEmail"
+            })
+            .expect(200)
+            .end(function (err, res) {
+                expect(res.body).to.have.property('username');
+                expect(res.body.username).to.equal('user1');
+                expect(res.body).to.have.property('level');
+                expect(res.body.level).to.equal('normal');
+                expect(res.body).to.have.property('favorite');
+                expect(res.body.favorite).to.equal('nothing');
+                expect(res.body).to.have.property('email');
+                expect(res.body.email).to.equal('user1@test.com');
+                expect(res.body).to.have.property('region');
+                expect(res.body.region).to.equal('south');
+                done();
+            })
     })
 })
