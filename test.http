@@ -14,12 +14,13 @@ get {{url}}/posts
 
 ### post something here
 post {{url}}/post
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYjBhNTEyMzExNTUwM2M4OGUyYmQ3NyIsImlhdCI6MTU3MTg1NzY4N30.tvl9a7irOJYCuW4q8oArlusiZbAQOIi8uy1AxramZZE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYjhhZjFkYTFiNDlkYWU0ZDRmZmRjOCIsImlhdCI6MTU3MjQ1MzIyM30.Pnrj12c9xJcY6qOK4eN8B27T_I9PK0pUYRDoU39eiZ0
 {{json}}
 
 {
-    "title" : "my first 2 post",
-    "body" : "Hello World"  
+    "title" : "",
+    "body" : "",
+    "region" : "north"
 }
 
 ### register
@@ -28,7 +29,8 @@ post {{url}}/register
 
 {
     "username" : "user1",
-    "password" : "123"
+    "password" : "123",
+    "email" : "user1@test.com"
 }
 
 ### login 
@@ -45,7 +47,7 @@ post {{url}}/login
 
 ### Get person info
 get {{url}}/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYTUwZmY1M2VjN2UxMjQxZjA4NGIwZiIsImlhdCI6MTU3MTA5OTA5NH0.W5X_PqiOp5Drcdpw_ww021YvFOkaVMItTXHAOypRu6I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYjhhMzIzYjEwMDcwYTk4ZGVmZjZhZSIsImlhdCI6MTU3MjM4MTQ4Nn0.NBKsDD1vNd8OHHNGRcimlnQhukyUjyRVoRM26T2CDiA
 
 
 ###update person info
@@ -68,6 +70,3 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYTUxMmQxZ
 }
 
 
-###admin get all users' info.
-get {{url}}/admin/profiles
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYTUxMmQxZjM5ZGFkMjViMjY2MjZhYSIsImlhdCI6MTU3MTEwMDI4Mn0.AJOldbgHrXHP5w0lmoG_aW1BVAyO1bd_pnsve6YzOKM

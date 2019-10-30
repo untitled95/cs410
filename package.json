@@ -10,12 +10,12 @@
     "mongoose": "^5.7.5"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "mocha": "^6.2.2",
+    "@sudoo/mock": "^1.2.0",
+    "jest": "^24.9.0",
     "supertest": "^4.0.2"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "jest",
     "start": "node server.js"
   },
   "keywords": [],
