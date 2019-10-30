@@ -2,7 +2,8 @@ const handlers = require('./handlers');
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const { User, Post } = require('../models');
+
+
 
 mongoose.connect('mongodb://localhost:27017/express-auth', {
     useNewUrlParser: true,

@@ -12,6 +12,11 @@ get {{url}}/users
 get {{url}}/posts
 
 
+
+### check health of the database
+get http://localhost:80/
+
+
 ### post something here
 post {{url}}/post
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYjhhZjFkYTFiNDlkYWU0ZDRmZmRjOCIsImlhdCI6MTU3MjQ1MzIyM30.Pnrj12c9xJcY6qOK4eN8B27T_I9PK0pUYRDoU39eiZ0
@@ -39,7 +44,7 @@ post {{url}}/login
 
 {
     "username" : "user1",
-    "password" : "123"
+    "password" : "234"
 }
 
 
@@ -62,11 +67,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYTUxMmQxZ
 
 ###update person password
 post {{url}}/changePwd
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYTUxMmQxZjM5ZGFkMjViMjY2MjZhYSIsImlhdCI6MTU3MTY4Nzk4MH0.1ijgviB3NmjWeS1q6RIBqh6Ty1laRfPh06pdoDsEqTY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYmEwYmEyM2NkZDJkY2Y1Njg4ZmY0YiIsImlhdCI6MTU3MjQ3Mzc2NX0.YTijPU9-lOxUMMPI6i067v8Wwc-n5zs7BOSS-gZlAyo
 {{json}}
 
 {
-    "password" : "123"
+    "password" : "234"
 }
 
 

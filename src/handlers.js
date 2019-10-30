@@ -40,7 +40,7 @@ const registerHandler = async (req, res) => {
         return;
     }
 
-    const user = new User ({
+    const user = new User({
         username: req.body.username,
         password: require('bcrypt').hashSync(req.body.password, 10),
         email: req.body.email,
@@ -50,12 +50,10 @@ const registerHandler = async (req, res) => {
         createTime: Date()
     });
 
-    try {
-        await user.save();
-        res.sendStatus(200);
-    } catch (err) {
-        res.sendStatus(502);
-    }
+
+    await user.save();
+    res.sendStatus(200);
+
 
 }
 
@@ -91,47 +89,52 @@ const loginHandler = async (req, res) => {
 
 
 const updateHandler = async (req, res) => {
-    try {
+    const user = await User.findOne({
+        username: req.user.username
+    });
+    if (req.body.region) {
+        user.region = req.body.region;
+    }
 
-        const user = await User.findOne({
-            username: req.user.username
-        });
-        if (req.body.region) {
-            user.region = req.body.region;
-        }
+    if (req.body.favorite) {
+        user.favorite = req.body.favorite;
+    }
 
-        if (req.body.favorite) {
-            user.favorite = req.body.favorite;
-        }
+    user.updateTime = new Date();
 
-        user.updateTime = new Date();
-
-        await user.save();
-        res.status(200).send(user);
-    } catch (err) {
-        res.sendStatus(404);
-    };
+    await user.save();
+    res.status(200).send(user);
 }
+
 
 
 const passwordHandler = async (req, res) => {
-    try {
-        const user = await User.findOne({
-            username: req.user.username
-        })
 
-        if (req.body.password) {
-            user.password = require('bcrypt').hashSync(req.body.password, 10)
-        }
+    var tempUser = req.user;
 
-        user.updateTime = new Date();
-        await user.save();
-        res.sendStatus(200);
-    } catch (err) {
-        res.sendStatus(404);
-    };
+    await User.deleteOne({
+        username: req.user.username
+    });
 
+    if (req.body.password) {
+        tempUser.password = req.body.password;
+    }
+    const user = new User({
+        username: tempUser.username,
+        password: require('bcrypt').hashSync(tempUser.password, 10),
+        email: tempUser.email,
+        region: tempUser.region,
+        favorite: tempUser.favorite,
+        level: tempUser.level,
+        createTime: tempUser.createTime
+    });
+
+    user.updateTime = new Date();
+    await user.save();
+    res.sendStatus(200);
 }
+
+
 const profileHandler = async (req, res) => {
     if (req.user.level != "admin") {
         res.send(req.user);
@@ -144,27 +147,25 @@ const profileHandler = async (req, res) => {
 
 
 const postHandler = async (req, res) => {
-    try {
-        const user = await User.findOne({
-            username: req.user.username
-        })
-        if(req.body.title == "" || req.body.body == ""){
-            res.send("empty title or body");
-            return;
-        }
-        const post = new Post({
-            title: req.body.title,
-            body: req.body.body,
-            user: user.username,
-            region: req.body.region
-        });
 
-        post.createTime = new Date();
-        await post.save();
-        res.sendStatus(200);
-    } catch (err) {
+    const user = await User.findOne({
+        username: req.user.username
+    })
+    if (req.body.title == "" || req.body.body == "") {
         res.sendStatus(403);
-    };
+        return;
+    }
+    const post = new Post({
+        title: req.body.title,
+        body: req.body.body,
+        user: user.username,
+        region: req.body.region
+    });
+
+    post.createTime = new Date();
+    await post.save();
+    res.sendStatus(200);
+
 }
 module.exports = {
     auth, profileHandler, usersHandler, postsHandler, registerHandler, loginHandler, updateHandler, passwordHandler, postHandler
