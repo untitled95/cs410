@@ -206,7 +206,14 @@ const editPostHandler = async(req,res)=>{
     post.region = req.body.region;
     post.updateTime = new Date();
     await post.save();
-    res.send(post).sendStatus(200);
+    res.send(post);
+}
+
+const viewPostHandler = async(req,res)=>{
+    const post = await Post.find({
+        user: req.user.username
+    });
+    res.send(post);
 }
 
 module.exports = {
@@ -220,5 +227,6 @@ module.exports = {
     passwordHandler, 
     postHandler, 
     delPostHandler,
-    editPostHandler
+    editPostHandler,
+    viewPostHandler
 };
