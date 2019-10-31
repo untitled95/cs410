@@ -19,13 +19,25 @@ get http://localhost:80/
 
 ### post something here
 post {{url}}/post
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYjhhZjFkYTFiNDlkYWU0ZDRmZmRjOCIsImlhdCI6MTU3MjQ1MzIyM30.Pnrj12c9xJcY6qOK4eN8B27T_I9PK0pUYRDoU39eiZ0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYmI1NDY1NjBjYzUxMTQ1NzlhOWUxNyIsImlhdCI6MTU3MjU1NzkzNH0.APPjn5wkqyRV4SYzcrBr-o55wFaQrGJxRGECOGbW3GA
 {{json}}
 
 {
-    "title" : "",
-    "body" : "",
+    "title" : "test post 1",
+    "body" : "test post 1 body",
     "region" : "north"
+}
+
+### edit the post 
+post {{url}}/editPost
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYmI1NDY1NjBjYzUxMTQ1NzlhOWUxNyIsImlhdCI6MTU3MjU1NzkzNH0.APPjn5wkqyRV4SYzcrBr-o55wFaQrGJxRGECOGbW3GA
+{{json}}
+
+{
+    "_id" : "5dbb548660cc5114579a9e18",
+    "title": "edited title",
+    "body": "edited body",
+    "region": "edited region"
 }
 
 ### register
@@ -44,7 +56,7 @@ post {{url}}/login
 
 {
     "username" : "user1",
-    "password" : "234"
+    "password" : "123"
 }
 
 

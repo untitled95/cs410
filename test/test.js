@@ -278,12 +278,24 @@ describe('test delete post', () => {
         })
     })
 
+    test('cannot delete post for wrong post id, should return 404', (done) => {
+        request(app).post('/api/delPost')
+            .set('Authorization', `Bearer ${token}`)
+            .send({
+                _id: "111111111"
+            })
+            .then((res) =>{
+                expect(res.statusCode).toBe(404)
+                done()
+            })
+    })
+
     // user2 wants to user1's post
     test('can not delete post by wrong user, should return 403', (done) => {
         request(app).post('/api/delPost')
             .set('Authorization', `Bearer ${token2}`)
             .send({
-                id: post_id
+                _id: post_id
             })
             .then((res) =>{
                 expect(res.statusCode).toBe(403)
@@ -304,7 +316,7 @@ describe('test delete post', () => {
         request(app).post('/api/delPost')
             .set('Authorization', `Bearer ${token}`)
             .send({
-                id: post_id
+                _id: post_id
             })
             .then((res) =>{
                 expect(res.statusCode).toBe(200)
@@ -318,6 +330,19 @@ describe('test delete post', () => {
             expect(res.body.length).toBe(0);
             done();
         })
+    })
+
+    
+    test('cannot delete post for empty post database, should return 404', (done) => {
+        request(app).post('/api/delPost')
+            .set('Authorization', `Bearer ${token}`)
+            .send({
+                _id: post_id
+            })
+            .then((res) =>{
+                expect(res.statusCode).toBe(404)
+                done()
+            })
     })
 
     //add some posts
@@ -348,7 +373,7 @@ describe('test delete post', () => {
         request(app).post('/api/delPost')
             .set('Authorization', `Bearer ${adminToken}`)
             .send({
-                id: post_id
+                _id: post_id
             })
             .then((res)=>{
                 expect(res.statusCode).toBe(200)
