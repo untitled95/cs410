@@ -4,7 +4,7 @@ const { User, Post } = require('../models');
 
 var token;
 var adminToken;
-
+var token2;
 
 beforeAll(() => {
     const user = User.create({
@@ -68,6 +68,19 @@ describe('General tests', () => {
                 expect(res.statusCode).toBe(200);
                 expect(res.body).toHaveProperty("token")
                 adminToken = res.body.token;
+                done()
+            })
+    })
+    test('Should return 200 after user2 login',(done)=>{
+        request(app).post('/api/login')
+            .send({
+                username: "user2",
+                password: "123456"
+            })
+            .then((res) => {
+                expect(res.statusCode).toBe(200);
+                expect(res.body).toHaveProperty("token")
+                token2 = res.body.token;
                 done()
             })
     })
@@ -253,4 +266,101 @@ describe('Post relative',()=>{
 })
 
 
+//delete post by admin 
+var post_id;
+describe('test delete post', () => {
+    // get user1's first post id
+    test('Should return 200 with the get all posts request', (done) => {
+        request(app).get('/api/posts').then((res) => {
+            expect(res.statusCode).toBe(200);
+            post_id = res.body[0]._id;
+            done();
+        })
+    })
 
+    // user2 wants to user1's post
+    test('can not delete post by wrong user, should return 403', (done) => {
+        request(app).post('/api/delPost')
+            .set('Authorization', `Bearer ${token2}`)
+            .send({
+                id: post_id
+            })
+            .then((res) =>{
+                expect(res.statusCode).toBe(403)
+                done()
+            })
+    })
+
+    test('Should return 200 with the get one post', (done) => {
+        request(app).get('/api/posts').then((res) => {
+            expect(res.statusCode).toBe(200);
+            expect(res.body.length).toBe(1);
+            done();
+        })
+    })
+
+    //user1 wants to user1's post
+    test('can delete post by correct user, should return 200', (done) => {
+        request(app).post('/api/delPost')
+            .set('Authorization', `Bearer ${token}`)
+            .send({
+                id: post_id
+            })
+            .then((res) =>{
+                expect(res.statusCode).toBe(200)
+                done()
+            })
+    })
+
+    test('Should return 200 with the get no post', (done) => {
+        request(app).get('/api/posts').then((res) => {
+            expect(res.statusCode).toBe(200);
+            expect(res.body.length).toBe(0);
+            done();
+        })
+    })
+
+    //add some posts
+    test('It should response 200 after post with non-empty title and body', (done) => {
+        request(app).post('/api/post')
+            .set('Authorization', `Bearer ${token}`)
+            .send({
+                title:"post 1",
+                body:"post 1 body"
+            })
+            .then((res) => {
+                expect(res.statusCode).toBe(200);
+                done()
+            })
+    })
+
+    // get user1's first post id
+    test('Should return 200 with the get all posts request', (done) => {
+        request(app).get('/api/posts').then((res) => {
+            expect(res.statusCode).toBe(200);
+            post_id = res.body[0]._id;
+            done();
+        })
+    })
+
+    //admin wants to delete
+    test('can delete post by admin, should return 200', (done) => {
+        request(app).post('/api/delPost')
+            .set('Authorization', `Bearer ${adminToken}`)
+            .send({
+                id: post_id
+            })
+            .then((res)=>{
+                expect(res.statusCode).toBe(200)
+                done()
+            })     
+    })
+
+    test('Should return 200 with the get no post', (done) => {
+        request(app).get('/api/posts').then((res) => {
+            expect(res.statusCode).toBe(200);
+            expect(res.body.length).toBe(0);
+            done();
+        })
+    })
+})

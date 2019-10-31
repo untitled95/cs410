@@ -38,7 +38,7 @@ app.get('/api/profile', handlers.auth, handlers.profileHandler); //admin can saw
  * post relative functions.
  */
 app.post('/api/post', handlers.auth, handlers.postHandler);
-
+app.post('/api/delPost',handlers.auth,handlers.delPostHandler);
 
 
 module.exports = {

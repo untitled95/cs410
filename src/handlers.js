@@ -167,6 +167,27 @@ const postHandler = async (req, res) => {
     res.sendStatus(200);
 
 }
+
+const delPostHandler = async (req, res) => {
+    const post = await Post.findOne({
+        _id : req.body.id
+    });
+    if (!post){
+        return res.sendStatus(404);
+    }
+    if (req.user.level != "admin" && req.user.username != post.user){
+        return res.sendStatus(403);
+    }
+    try{
+        const post = await Post.deleteOne({
+            _id : req.body.id
+        });
+        
+        res.sendStatus(200);
+    }catch{
+        res.sendStatus(404);
+    }
+}
 module.exports = {
-    auth, profileHandler, usersHandler, postsHandler, registerHandler, loginHandler, updateHandler, passwordHandler, postHandler
+    auth, profileHandler, usersHandler, postsHandler, registerHandler, loginHandler, updateHandler, passwordHandler, postHandler, delPostHandler
 };
