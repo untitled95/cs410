@@ -278,18 +278,6 @@ describe('test delete post', () => {
         })
     })
 
-    test('cannot delete post for wrong post id, should return 404', (done) => {
-        request(app).post('/api/delPost')
-            .set('Authorization', `Bearer ${token}`)
-            .send({
-                _id: "111111111"
-            })
-            .then((res) =>{
-                expect(res.statusCode).toBe(404)
-                done()
-            })
-    })
-
     // user2 wants to user1's post
     test('can not delete post by wrong user, should return 403', (done) => {
         request(app).post('/api/delPost')

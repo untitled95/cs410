@@ -159,7 +159,8 @@ const postHandler = async (req, res) => {
         title: req.body.title,
         body: req.body.body,
         user: user.username,
-        region: req.body.region
+        region: req.body.region,
+        payRate: req.body.payRate
     });
 
     post.createTime = new Date();

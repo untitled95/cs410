@@ -29,6 +29,7 @@ const PostSchema = new mongoose.Schema({
     user: { type: String },
     takenBy: { type: String },
     region: { type: String },
+    payRate: {type: Number},
     createTime: { type: Date },
     updateTime: { type: Date },
     archive: {
