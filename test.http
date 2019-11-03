@@ -19,25 +19,27 @@ get http://localhost:80/
 
 ### post something here
 post {{url}}/post
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYmI1NDY1NjBjYzUxMTQ1NzlhOWUxNyIsImlhdCI6MTU3MjU1NzkzNH0.APPjn5wkqyRV4SYzcrBr-o55wFaQrGJxRGECOGbW3GA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYmVmYWIwZjJiZDA5NDdiMjZkNzM3YiIsImlhdCI6MTU3Mjc5NzEwN30.JDAa8kpteSyE-7ko3WoQEH7M_QMgrSnFAzhrCTBW8Rg
 {{json}}
 
 {
     "title" : "test post 1",
     "body" : "test post 1 body",
-    "region" : "north"
+    "region" : "north",
+    "payRate" : 5
 }
 
 ### edit the post 
 post {{url}}/editPost
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYmI1NDY1NjBjYzUxMTQ1NzlhOWUxNyIsImlhdCI6MTU3MjU1NzkzNH0.APPjn5wkqyRV4SYzcrBr-o55wFaQrGJxRGECOGbW3GA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYmVmYWIwZjJiZDA5NDdiMjZkNzM3YiIsImlhdCI6MTU3Mjc5NzEwN30.JDAa8kpteSyE-7ko3WoQEH7M_QMgrSnFAzhrCTBW8Rg
 {{json}}
 
 {
-    "_id" : "5dbb548660cc5114579a9e18",
+    "_id" : "5dbefacbf2bd0947b26d737c",
     "title": "edited title",
     "body": "edited body",
-    "region": "edited region"
+    "region": "edited region",
+    "payRate": 0
 }
 
 ### register

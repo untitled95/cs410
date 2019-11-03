@@ -29,11 +29,11 @@ const PostSchema = new mongoose.Schema({
     user: { type: String },
     takenBy: { type: String },
     region: { type: String },
-    payRate: {type: Number},
+    payRate: { type: Number },
     createTime: { type: Date },
     updateTime: { type: Date },
     archive: {
-        type: [Boolean],
+        type: Boolean,
         default: false
     }
 });
@@ -61,7 +61,7 @@ const MessageSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema);
 const Post = mongoose.model('Post', PostSchema);
-const Message = mongoose.model('Message',MessageSchema);
+const Message = mongoose.model('Message', MessageSchema);
 
 // User.db.dropCollection('users');
 // Post.db.dropCollection('posts');

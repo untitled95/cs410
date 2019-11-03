@@ -25,7 +25,7 @@ beforeAll(() => {
         level: "normal",
         createTime: Date()
     });
-    
+
 })
 
 afterAll(() => {
@@ -34,14 +34,14 @@ afterAll(() => {
 });
 
 
-describe('auth test',()=>{
-    test('should return 403 with the wrong token',(done)=>{
+describe('auth test', () => {
+    test('should return 403 with the wrong token', (done) => {
         request(app).get('/api/profile')
             .set('Authorization', `Bearer ${token}`)
             .then((res) => {
-            expect(res.statusCode).toBe(403);
-            done();
-        })
+                expect(res.statusCode).toBe(403);
+                done();
+            })
     })
 })
 
@@ -58,7 +58,7 @@ describe('General tests', () => {
             done();
         })
     })
-    test('Should return 200 after admin login',(done)=>{
+    test('Should return 200 after admin login', (done) => {
         request(app).post('/api/login')
             .send({
                 username: "admin",
@@ -71,7 +71,7 @@ describe('General tests', () => {
                 done()
             })
     })
-    test('Should return 200 after user2 login',(done)=>{
+    test('Should return 200 after user2 login', (done) => {
         request(app).post('/api/login')
             .send({
                 username: "user2",
@@ -210,7 +210,7 @@ describe('Profiles relative tests', () => {
                 done()
             })
     })
-    test('It can login with the new password',(done)=>{
+    test('It can login with the new password', (done) => {
         request(app).post('/api/login')
             .send({
                 username: "user1",
@@ -223,16 +223,16 @@ describe('Profiles relative tests', () => {
                 done()
             })
     })
-    
+
 })
 
-describe('Post relative',()=>{
+describe('Post relative', () => {
     test('It should response 200 after post with non-empty title and body', (done) => {
         request(app).post('/api/post')
             .set('Authorization', `Bearer ${token}`)
             .send({
-                title:"post 1",
-                body:"post 1 body"
+                title: "post 1",
+                body: "post 1 body"
             })
             .then((res) => {
                 expect(res.statusCode).toBe(200);
@@ -243,8 +243,8 @@ describe('Post relative',()=>{
         request(app).post('/api/post')
             .set('Authorization', `Bearer ${token}`)
             .send({
-                title:"",
-                body:"post 1 body"
+                title: "",
+                body: "post 1 body"
             })
             .then((res) => {
                 expect(res.statusCode).toBe(403);
@@ -255,8 +255,8 @@ describe('Post relative',()=>{
         request(app).post('/api/post')
             .set('Authorization', `Bearer ${token}`)
             .send({
-                title:"post 1",
-                body:""
+                title: "post 1",
+                body: ""
             })
             .then((res) => {
                 expect(res.statusCode).toBe(403);
@@ -268,6 +268,7 @@ describe('Post relative',()=>{
 
 //delete post by admin 
 var post_id;
+
 describe('test delete post', () => {
     // get user1's first post id
     test('Should return 200 with the get all posts request', (done) => {
@@ -285,7 +286,7 @@ describe('test delete post', () => {
             .send({
                 _id: post_id
             })
-            .then((res) =>{
+            .then((res) => {
                 expect(res.statusCode).toBe(403)
                 done()
             })
@@ -299,35 +300,26 @@ describe('test delete post', () => {
         })
     })
 
-    //user1 wants to user1's post
+    //user1 wants to delete user1's post
     test('can delete post by correct user, should return 200', (done) => {
         request(app).post('/api/delPost')
             .set('Authorization', `Bearer ${token}`)
             .send({
                 _id: post_id
             })
-            .then((res) =>{
+            .then((res) => {
                 expect(res.statusCode).toBe(200)
                 done()
             })
     })
 
-    test('Should return 200 with the get no post', (done) => {
-        request(app).get('/api/posts').then((res) => {
-            expect(res.statusCode).toBe(200);
-            expect(res.body.length).toBe(0);
-            done();
-        })
-    })
-
-    
     test('cannot delete post for empty post database, should return 404', (done) => {
         request(app).post('/api/delPost')
             .set('Authorization', `Bearer ${token}`)
             .send({
                 _id: post_id
             })
-            .then((res) =>{
+            .then((res) => {
                 expect(res.statusCode).toBe(404)
                 done()
             })
@@ -338,8 +330,8 @@ describe('test delete post', () => {
         request(app).post('/api/post')
             .set('Authorization', `Bearer ${token}`)
             .send({
-                title:"post 1",
-                body:"post 1 body"
+                title: "post 1",
+                body: "post 1 body"
             })
             .then((res) => {
                 expect(res.statusCode).toBe(200);
@@ -363,10 +355,10 @@ describe('test delete post', () => {
             .send({
                 _id: post_id
             })
-            .then((res)=>{
+            .then((res) => {
                 expect(res.statusCode).toBe(200)
                 done()
-            })     
+            })
     })
 
     test('Should return 200 with the get no post', (done) => {
@@ -375,5 +367,126 @@ describe('test delete post', () => {
             expect(res.body.length).toBe(0);
             done();
         })
+    })
+})
+
+var post_id2;
+describe('Edit post test', () => {
+    test('User1 post something', (done) => {
+        request(app).post('/api/post')
+            .set('Authorization', `Bearer ${token}`)
+            .send({
+                title: "post 1 title",
+                body: "post 1 body",
+                region: "North",
+                payRate: 10
+            })
+            .then((res) => {
+                expect(res.statusCode).toBe(200);
+                post_id = res.body._id;
+                done()
+            })
+    })
+
+    test('User2 post something', (done) => {
+        request(app).post('/api/post')
+            .set('Authorization', `Bearer ${token2}`)
+            .send({
+                title: "user2 post 1 title",
+                body: "user 2 post 1 body",
+                region: "South",
+                payRate: 5
+            })
+            .then((res) => {
+                expect(res.statusCode).toBe(200);
+                post_id2 = res.body._id;
+                done()
+            })
+    })
+    // console.log(post_id);
+    // console.log(post_id2);
+
+    test('User 1 can edit his own post', (done) => {
+        request(app).post('/api/editPost')
+            .set('Authorization', `Bearer ${token}`)
+            .send({
+                _id: post_id,
+                title: "edit post 1 title",
+                body: "edited post 1 body",
+                region: "edited north",
+                payRate: 0
+            })
+            .then((res) => {
+                expect(res.body).toHaveProperty("title");
+                expect(res.body.title).toBe("edit post 1 title");
+                expect(res.body).toHaveProperty("body");
+                expect(res.body.body).toBe("edited post 1 body");
+                expect(res.body).toHaveProperty("region");
+                expect(res.body.region).toBe("edited north");
+                expect(res.body).toHaveProperty("payRate");
+                expect(res.body.payRate).toBe(0);
+                done();
+            })
+    })
+
+    test('Should return 404. User 1 can not edited post not exits', (done) => {
+        request(app).post('/api/editPost')
+            .set('Authorization', `Bearer ${token}`)
+            .send({
+                _id: "5db769ce1989d472fa436bb4",
+                title: "edit post 1 title",
+                body: "edited post 1 body",
+                region: "edited north",
+                payRate: 0
+            })
+            .then((res) => {
+                expect(res.statusCode).toBe(404);
+                done();
+            })
+    })
+
+    test('User 1 can edit his own post pay rate', (done) => {
+        request(app).post('/api/editPost')
+            .set('Authorization', `Bearer ${token}`)
+            .send({
+                _id: post_id,
+                payRate: 2
+            })
+            .then((res) => {
+                expect(res.body).toHaveProperty("title");
+                expect(res.body.title).toBe("edit post 1 title");
+                expect(res.body).toHaveProperty("body");
+                expect(res.body.body).toBe("edited post 1 body");
+                expect(res.body).toHaveProperty("region");
+                expect(res.body.region).toBe("edited north");
+                expect(res.body).toHaveProperty("payRate");
+                expect(res.body.payRate).toBe(2);
+                done();
+            })
+    })
+
+    test('User 1 can not edit user2 post ', (done) => {
+        request(app).post('/api/editPost')
+            .set('Authorization', `Bearer ${token}`)
+            .send({
+                _id: post_id2,
+                title: "edit post 1 title",
+                body: "edited post 1 body",
+                region: "edited north",
+                payRate: 2
+            })
+            .then((res) => {
+                expect(res.statusCode).toBe(403);
+                done();
+            })
+    })
+
+    test('view user own posts', (done) => {
+        request(app).get('/api/viewPosts')
+            .set('Authorization', `Bearer ${token}`)
+            .then((res) => {
+                expect(res.body.length).toBe(1);
+                done();
+            })
     })
 })

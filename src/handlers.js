@@ -155,6 +155,7 @@ const postHandler = async (req, res) => {
         res.sendStatus(403);
         return;
     }
+
     const post = new Post({
         title: req.body.title,
         body: req.body.body,
@@ -165,68 +166,100 @@ const postHandler = async (req, res) => {
 
     post.createTime = new Date();
     await post.save();
-    res.sendStatus(200);
+    res.status(200).send(post);
 
 }
 
 const delPostHandler = async (req, res) => {
     const post = await Post.findOne({
-        _id : req.body._id
+        _id: req.body._id
     });
-    if (!post){
+    if (!post) {
         res.sendStatus(404);
         return;
     }
-    if (req.user.level != "admin" && req.user.username != post.user){
+    if (req.user.level != "admin" && req.user.username != post.user) {
         res.sendStatus(403);
         return;
     }
 
     await Post.deleteOne({
-        _id : req.body._id
+        _id: req.body._id
     });
-        
+
     res.sendStatus(200);
-    
+
 }
 
-const editPostHandler = async(req,res)=>{
+const editPostHandler = async (req, res) => {
+
+
     const post = await Post.findOne({
-        _id : req.body._id
+        _id: req.body._id
     });
-    
-    if(!post){
-        return res.sendStatus(404);
+
+    if (!post) {
+        res.sendStatus(404);
+        return;
     }
-    if(req.user.username != post.user){
+
+    if (req.user.username != post.user) {
+
         res.sendStatus(403);
         return;
     }
-    post.title = req.body.title;
-    post.body = req.body.body;
-    post.region = req.body.region;
+    if (req.body.title) {
+        post.title = req.body.title;
+    }
+    if (req.body.body) {
+        post.body = req.body.body;
+    }
+    if (req.body.region) {
+        post.region = req.body.region;
+    }
+
+    if (Number(req.body.payRate) == 0) {
+
+        post.payRate = 0;
+
+    }
+    if (req.body.payRate) {
+
+        post.payRate = Number(req.body.payRate);
+
+    }
     post.updateTime = new Date();
+
     await post.save();
     res.send(post);
+
 }
 
-const viewPostHandler = async(req,res)=>{
+const viewPostHandler = async (req, res) => {
     const post = await Post.find({
         user: req.user.username
     });
     res.send(post);
 }
 
+
+// const forgetPasswordHandler = async(req,res)=>{
+//     const user = await User.findOne({
+//         username: req.body.username
+//     });
+
+// }
+
 module.exports = {
-    auth, 
-    profileHandler, 
-    usersHandler, 
-    postsHandler, 
-    registerHandler, 
-    loginHandler, 
-    updateHandler, 
-    passwordHandler, 
-    postHandler, 
+    auth,
+    profileHandler,
+    usersHandler,
+    postsHandler,
+    registerHandler,
+    loginHandler,
+    updateHandler,
+    passwordHandler,
+    postHandler,
     delPostHandler,
     editPostHandler,
     viewPostHandler
