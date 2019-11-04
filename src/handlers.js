@@ -79,7 +79,9 @@ const loginHandler = async (req, res) => {
     //generate token
     const token = jwt.sign({
         id: String(user._id),
-    }, SECRET);
+    }, SECRET,{
+        expiresIn: 20
+    });
 
     res.send({
         user,

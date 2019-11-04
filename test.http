@@ -13,8 +13,19 @@ get {{url}}/posts
 
 
 
-### check health of the database
-get http://localhost:80/
+### get messages
+get {{url}}/messages
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYmYxMGIzZWQ3ZDk5NTRlMzM4YjE2MCIsImlhdCI6MTU3MjgwMjc0MX0.oqpCCqdQr33GQ1VhdAOFikoPMZZRdbHR1_okhHv0OPk
+{{json}}
+
+{
+    "user" : "user2"
+}
+
+
+### message 
+post {{url}}/send
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYmYxMGIzZWQ3ZDk5NTRlMzM4YjE2MCIsImlhdCI6MTU3MjgwMjc0MX0.oqpCCqdQr33GQ1VhdAOFikoPMZZRdbHR1_okhHv0OPk
 
 
 ### post something here

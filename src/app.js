@@ -1,4 +1,5 @@
 const handlers = require('./handlers');
+const msgHandles = require('./msgHandles');
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -41,6 +42,17 @@ app.post('/api/post', handlers.auth, handlers.postHandler);
 app.post('/api/delPost', handlers.auth, handlers.delPostHandler);
 app.post('/api/editPost', handlers.auth, handlers.editPostHandler);
 app.get('/api/viewPosts', handlers.auth, handlers.viewPostHandler);
+
+
+
+/**
+ * message relative functions
+ */
+app.post('/api/send', handlers.auth, msgHandles.sendHandler);
+app.get('/api/messages',handlers.auth,msgHandles.getMessagesHandler);
+
+
+
 
 module.exports = {
     app
