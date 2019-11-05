@@ -3,7 +3,7 @@ const msgHandles = require('./msgHandles');
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-
+const bodyParser = require("body-parser");
 
 
 mongoose.connect('mongodb://localhost:27017/express-auth', {
@@ -13,7 +13,7 @@ mongoose.connect('mongodb://localhost:27017/express-auth', {
 });
 
 
-app.use(express.json());
+app.use(bodyParser.json());
 /**
  * for test purpose
  * this api only debugging purpose, do not use this one in production 
