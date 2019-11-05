@@ -49,7 +49,7 @@ app.get('/api/viewPosts', handlers.auth, handlers.viewPostHandler);
  * message relative functions
  */
 app.post('/api/send', handlers.auth, msgHandles.sendHandler);
-app.get('/api/messages',handlers.auth,msgHandles.getMessagesHandler);
+app.post('/api/messages',handlers.auth,msgHandles.getMessagesHandler);
 
 
 

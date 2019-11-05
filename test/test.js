@@ -1,6 +1,6 @@
 const request = require('supertest');
 const { app } = require('../src/app')
-const { User, Post } = require('../models');
+const { User, Post,Message } = require('../models');
 
 var token;
 var adminToken;
@@ -31,6 +31,7 @@ beforeAll(() => {
 afterAll(() => {
     User.db.dropCollection('users');
     Post.db.dropCollection('posts');
+    Message.db.dropCollection('messages');
 });
 
 
@@ -223,7 +224,6 @@ describe('Profiles relative tests', () => {
                 done()
             })
     })
-
 })
 
 describe('Post relative', () => {
@@ -403,8 +403,6 @@ describe('Edit post test', () => {
                 done()
             })
     })
-    // console.log(post_id);
-    // console.log(post_id2);
 
     test('User 1 can edit his own post', (done) => {
         request(app).post('/api/editPost')
@@ -488,5 +486,76 @@ describe('Edit post test', () => {
                 expect(res.body.length).toBe(1);
                 done();
             })
+    })
+})
+
+describe('message relative tests',()=>{
+    test('send the very first message',(done)=>{
+        request(app).post('/api/send')
+        .set('Authorization',`Bearer ${token}`)
+        .send({
+            username: "user2",
+            message: "hello"
+        })
+        .then(((res)=>{
+            expect(res.statusCode).toBe(200);
+            expect(res.body.message.length).toBe(1);
+            expect(res.body.message[0].direction).toBe(true);
+            done();
+        }))
+    })
+    test('send the second first message',(done)=>{
+        request(app).post('/api/send')
+        .set('Authorization',`Bearer ${token}`)
+        .send({
+            username: "user2",
+            message: "hello2"
+        })
+        .then(((res)=>{
+            expect(res.statusCode).toBe(200);
+            expect(res.body.message.length).toBe(2);
+            expect(res.body.message[1].direction).toBe(true);
+            done();
+        }))
+    })
+    test('user 2 send user1 a message',(done)=>{
+        request(app).post('/api/send')
+        .set('Authorization',`Bearer ${token2}`)
+        .send({
+            username: "user1",
+            message: "hello3"
+        })
+        .then(((res)=>{
+            expect(res.statusCode).toBe(200);
+            expect(res.body.message.length).toBe(3);
+            expect(res.body.message[2].direction).toBe(false);
+            done();
+        }))
+    })
+    test('should return 3 after get message length between user1 and user2 ',(done)=>{
+        request(app).post('/api/messages')
+        .set('Authorization',`Bearer ${token}`)
+        .send({
+            username: "user1"
+        })
+        .then(((res)=>{
+            expect(res.statusCode).toBe(200);
+            expect(res.body.message.length).toBe(3);
+            expect(res.body.message[2].direction).toBe(false);
+            done();
+        }))
+    })
+    test('should return 3 after get message length between user1 and user2 ',(done)=>{
+        request(app).post('/api/messages')
+        .set('Authorization',`Bearer ${token2}`)
+        .send({
+            username: "user1"
+        })
+        .then(((res)=>{
+            expect(res.statusCode).toBe(200);
+            expect(res.body.message.length).toBe(3);
+            expect(res.body.message[2].direction).toBe(false);
+            done();
+        }))
     })
 })

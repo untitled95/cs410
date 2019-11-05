@@ -45,7 +45,7 @@ const MessageSchema = new mongoose.Schema({
         default: [],
     },
     message: {
-        type: new mongoose.Schema({
+        type: [new mongoose.Schema({
             direction: {
                 type: Boolean,
                 required: true,
@@ -54,7 +54,10 @@ const MessageSchema = new mongoose.Schema({
                 type: String,
                 required: true,
             },
-        }, { _id: false }),
+            time:{
+                type: Date
+            }
+        }, { _id: false })],
     },
 })
 
@@ -65,7 +68,7 @@ const Message = mongoose.model('Message', MessageSchema);
 
 // User.db.dropCollection('users');
 // Post.db.dropCollection('posts');
-
+// Message.db.dropCollection('messages');
 
 //use to set up the default admin
 // const user =  User.create({
