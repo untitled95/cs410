@@ -77,7 +77,7 @@ post {{url}}/login
 
 ### Get person info
 get {{url}}/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYjhhMzIzYjEwMDcwYTk4ZGVmZjZhZSIsImlhdCI6MTU3MjM4MTQ4Nn0.NBKsDD1vNd8OHHNGRcimlnQhukyUjyRVoRM26T2CDiA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYzA5MDVkZDhjMzhjNjkwNzliZTJmMyIsImlhdCI6MTU3MjkwMDk1OCwiZXhwIjoxNTcyOTAwOTc4fQ.byjnH3jcFfUCTu5uGFUaEY4zRTnJnnXRKKku2L1eO1s
 
 
 ###update person info
