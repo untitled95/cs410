@@ -246,10 +246,13 @@ const viewPostHandler = async (req, res) => {
 
 
 // const forgetPasswordHandler = async(req,res)=>{
+    
 //     const user = await User.findOne({
 //         username: req.body.username
 //     });
-
+//     if(user.email===req.body.email){
+//         user.password = 
+//     }
 // }
 
 module.exports = {
@@ -264,5 +267,6 @@ module.exports = {
     postHandler,
     delPostHandler,
     editPostHandler,
-    viewPostHandler
+    viewPostHandler,
+    // forgetPasswordHandler
 };

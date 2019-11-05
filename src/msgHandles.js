@@ -1,4 +1,4 @@
-const { User, Post, Message } = require('../models');
+const { Message } = require('../models');
 
 
 const sendHandler = async (req, res) => {
