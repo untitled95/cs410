@@ -61,6 +61,7 @@ const loginHandler = async (req, res) => {
     const user = await User.findOne({
         username: req.body.username
     });
+    console.log(req.body);
     if (!user) {
         return res.status(422).send({
             message: 'wrong combination'
