@@ -66,9 +66,9 @@ const User = mongoose.model('User', UserSchema);
 const Post = mongoose.model('Post', PostSchema);
 const Message = mongoose.model('Message', MessageSchema);
 
-// User.db.dropCollection('users');
-// Post.db.dropCollection('posts');
-// Message.db.dropCollection('messages');
+//User.db.dropCollection('users');
+//Post.db.dropCollection('posts');
+//Message.db.dropCollection('messages');
 
 //use to set up the default admin
 // const user =  User.create({

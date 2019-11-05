@@ -39,7 +39,7 @@ const registerHandler = async (req, res) => {
         res.sendStatus(422);
         return;
     }
-
+	console.log(req);
     const user = new User({
         username: req.body.username,
         password: require('bcrypt').hashSync(req.body.password, 10),
@@ -61,7 +61,11 @@ const loginHandler = async (req, res) => {
     const user = await User.findOne({
         username: req.body.username
     });
+<<<<<<< HEAD
     console.log(req.body);
+=======
+	console.log(req.body);
+>>>>>>> aad4434028c620bc8e3a246f08fecf83e792360a
     if (!user) {
         return res.status(422).send({
             message: 'wrong combination'
