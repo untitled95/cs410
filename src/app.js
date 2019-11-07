@@ -6,7 +6,8 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 
-mongoose.connect('mongodb://localhost:27017/express-auth', {
+const uri = "mongodb://localhost:27017/express-auth";
+mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
