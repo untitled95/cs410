@@ -33,7 +33,7 @@ Authorization: Bearer
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYTUxMmQxZjM5ZGFkMjViMjY2MjZhYSIsImlhdCI6MTU3MTY5NjgwM30.ZxIA7q1fua3IqwgaXgkG9D8WxrPj58QzI9XzZOeZdkY
 #### json data
 
-```
+``` json
 {
     "title" : "example title",
     "body" : "example body"  
