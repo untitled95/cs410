@@ -39,7 +39,7 @@ const registerHandler = async (req, res) => {
         res.sendStatus(422);
         return;
     }
-	console.log(req);
+	
     const user = new User({
         username: req.body.username,
         password: require('bcrypt').hashSync(req.body.password, 10),
