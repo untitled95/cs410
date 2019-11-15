@@ -559,3 +559,86 @@ describe('message relative tests',()=>{
         }))
     })
 })
+
+var changePassToken;
+describe('change password tests',()=>{
+    test('user input wrong email address',(done)=>{
+        request(app).get('/api/forget')
+        .send({
+            username: "user2",
+            email: "user1@test.com"
+        })
+        .then(((res)=>{
+            expect(res.statusCode).toBe(200);
+            expect(res.body.message).toBe('Incorrect Email Address...');
+            done();
+        }))
+    })
+
+    test('user input wrong user name',(done)=>{
+        request(app).get('/api/forget')
+        .send({
+            username: "useraa",
+            email: "user1@test.com"
+        })
+        .then(((res)=>{
+            expect(res.statusCode).toBe(200);
+            expect(res.body.message).toBe('Wrong user name!');
+            done();
+        }))
+    })
+
+    test('user input correct email address',(done)=>{
+        request(app).get('/api/forget')
+        .send({
+            username: "user2",
+            email: "user2@test.com"
+        })
+        .then(((res)=>{
+            expect(res.statusCode).toBe(200);
+            //expect(res.body.Token.length).toBe(1);
+            changePassToken = res.body.Token;
+            done();
+        }))
+    })
+
+    test('change password with incorrect token',(done)=>{
+        request(app).post('/api/updatePass')
+        .send({
+            resetPasswordToken: "613bf72c32ab7bdbc94856951847858c679e42cf9149e9a1913d2fc9d20e83b5c784526d5e3623c4ce1efc6d7c2e4935",
+            password: "654321"
+        })
+        .then(((res)=>{
+            expect(res.statusCode).toBe(200);
+            expect(res.body.message).toBe('Invalid Token!.');
+            done();
+        }))
+    })
+
+    test('change password with correct token',(done)=>{
+        request(app).post('/api/updatePass')
+        .send({
+            resetPasswordToken: changePassToken,
+            password: "654321"
+        })
+        .then(((res)=>{
+            expect(res.statusCode).toBe(200);
+            expect(res.body.message).toBe('Password Reset Successfully!!');
+            done();
+        }))
+    })
+
+    test('It can login with the new password', (done) => {
+        request(app).post('/api/login')
+            .send({
+                username: "user2",
+                password: "654321"
+            })
+            .then((res) => {
+                expect(res.statusCode).toBe(200);
+                expect(res.body).toHaveProperty("token")
+                token = res.body.token;
+                done()
+            })
+    })
+})

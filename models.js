@@ -19,7 +19,9 @@ const UserSchema = new mongoose.Schema({
     favorite: { type: String },
     level: { type: String },
     createTime: { type: Date },
-    updateTime: { type: Date }
+    updateTime: { type: Date },
+    resetPasswordToken: { type: String },
+    resetPasswordExpires: { type: Date }
 });
 
 

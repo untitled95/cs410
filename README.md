@@ -174,3 +174,71 @@ For this one, the return info will be like
  true means that this is the message user 2 send to the user1.
  false means that this is the message user 1 send to the user2.
 
+### forget password.
+`get {{url}}/forget'`
+```
+{
+    "username": "the user who forget the password"
+    "email": "the email address of that user"
+}
+```
+
+On sucess, will return 200, and
+```
+{
+    "Token": "token for update password"
+}
+```
+
+If the username can not be found in the DB
+it will return 200 and:
+```
+{
+    message: 'Wrong user name!'
+}
+```
+
+If the username and email address are not match
+it will return 200 and:
+```
+{
+    message: 'Incorrect Email Address...'
+}
+```
+
+### update password.
+`get {{url}}/updatePass'`
+```
+{
+    "resetPasswordToken": "the token get from the api: /forget",
+    "password": "new password"
+}
+```
+
+On sucess, will return 200, and
+```
+{
+    message: 'Password Reset Sucessfully!!'
+}
+```
+
+If the token is wrong, it will return 200 and
+```
+{
+    message: 'Invalid Token!.'
+}
+```
+
+If the token is expired, it will return 200 and
+```
+{
+    message: 'Password reset token is expired.'
+}
+```
+
+If any other error, it will return 200 and
+```
+{
+    message: 'Error!!'
+}
+```

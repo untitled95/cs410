@@ -1,5 +1,7 @@
 const handlers = require('./handlers');
 const msgHandles = require('./msgHandles');
+const mailHandles = require('./mailHandles');
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -52,8 +54,10 @@ app.get('/api/viewPosts', handlers.auth, handlers.viewPostHandler);
 app.post('/api/send', handlers.auth, msgHandles.sendHandler);
 app.post('/api/messages',handlers.auth,msgHandles.getMessagesHandler);
 
-
-
+//app.get('/api/verifyMail', mailHandles.verifyMail);
+//app.get('/api/passResetSucc', handlers.auth, mailHandles.passResetSucc)
+app.get('/api/forget', mailHandles.reqPassReset)
+app.post('/api/updatePass', mailHandles.updatePass)
 
 module.exports = {
     app
