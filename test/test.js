@@ -534,19 +534,6 @@ describe('message relative tests',()=>{
     })
     test('should return 3 after get message length between user1 and user2 ',(done)=>{
         request(app).post('/api/messages')
-        .set('Authorization',`Bearer ${token}`)
-        .send({
-            username: "user1"
-        })
-        .then(((res)=>{
-            expect(res.statusCode).toBe(200);
-            expect(res.body.message.length).toBe(3);
-            expect(res.body.message[2].direction).toBe(false);
-            done();
-        }))
-    })
-    test('should return 3 after get message length between user1 and user2 ',(done)=>{
-        request(app).post('/api/messages')
         .set('Authorization',`Bearer ${token2}`)
         .send({
             username: "user1"

@@ -7,9 +7,10 @@ const sendHandler = async (req, res) => {
     const msg = req.body.message;
 
     const messages = await Message.findOne({
-        users: {
-            $in: [user1, user2]
-        }
+         $or: [
+            {users: [user1,user2]},
+            {users: [user2,user1]}
+         ]
     });
 
     if (messages) {
@@ -30,14 +31,16 @@ const sendHandler = async (req, res) => {
                 time: new Date()
             }
         })
+    
         await message.save();
     }
     const allMessages = await Message.findOne({
-        users: {
-            $in: [user1, user2]
-        }
+        $or: [
+            {users: [user1,user2]},
+            {users: [user2,user1]}
+         ]
     });
-    
+
     res.status(200).send(allMessages);
 }
 
@@ -45,10 +48,12 @@ const getMessagesHandler = async (req, res) => {
     const user1 = req.user.username;
     const user2 = req.body.username;
 
+    
     const messages = await Message.findOne({
-        users: {
-            $in: [user1, user2]
-        }
+        $or: [
+            {users: [user1,user2]},
+            {users: [user2,user1]}
+         ]
     });
 
     res.status(200).send(messages);

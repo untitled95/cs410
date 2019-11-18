@@ -58,9 +58,9 @@ post {{url}}/register
 {{json}}
 
 {
-    "username" : "user1",
+    "username" : "user3",
     "password" : "123",
-    "email" : "user1@test.com"
+    "email" : "user3@test.com"
 }
 
 ### login 
@@ -68,7 +68,7 @@ post {{url}}/login
 {{json}}
 
 {
-    "username" : "user1",
+    "username" : "user2",
     "password" : "123"
 }
 
@@ -100,3 +100,32 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYmEwYmEyM
 }
 
 
+
+### 
+post {{url}}/send
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkZDFkY2U0MmYxNTUxMjI0ZDQxOWFlYiIsImlhdCI6MTU3NDAzODM0MywiZXhwIjoxNTc0MTI0NzQzfQ.ujOnrDeAtG1Fvsx8YgFwPUEBZh1kgNV825CWL20ea-I
+{{json}}
+
+{
+    "username":"user1",
+    "message":"hello to user2"
+}
+
+### 
+post {{url}}/send
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkZDFkY2RlMmYxNTUxMjI0ZDQxOWFlYSIsImlhdCI6MTU3NDAzNDY5MSwiZXhwIjoxNTc0MTIxMDkxfQ.1DlQj_VP4vPNT_HXU8iMCJkxKxYEAA4FUbtKRIlscqU
+{{json}}
+
+{
+    "username":"user3",
+    "message":"hello to user3"
+}
+
+###
+post {{url}}/messages
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkZDFkY2U0MmYxNTUxMjI0ZDQxOWFlYiIsImlhdCI6MTU3NDAzODM0MywiZXhwIjoxNTc0MTI0NzQzfQ.ujOnrDeAtG1Fvsx8YgFwPUEBZh1kgNV825CWL20ea-I
+{{json}}
+
+{
+    "username":"user1"
+}

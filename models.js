@@ -70,7 +70,7 @@ const Message = mongoose.model('Message', MessageSchema);
 
 //User.db.dropCollection('users');
 //Post.db.dropCollection('posts');
-//Message.db.dropCollection('messages');
+// db.messages.dropCollection();
 
 //use to set up the default admin
 // const user =  User.create({
