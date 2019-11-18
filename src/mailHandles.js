@@ -60,16 +60,12 @@ const reqPassReset = async (req, res) => {
     //console.log(user);
     //check email address
     if (!user){
-        res.status(200).send({
-            message: 'Wrong user name!'
-        });
+        res.sendStatus(403);
         return;
     }
     const toEmail = user.email;
     if (toEmail != req.body.email){
-        res.status(200).send({
-            message: 'Incorrect Email Address...'
-        });
+        res.sendStatus(403);
         return;
     }
     // get token
@@ -103,34 +99,27 @@ const updatePass = async (req, res) => {
         })
 
         if (!user){
-            res.status(200).send({
-                message: 'Invalid Token!.'
-            });
+            res.sendStatus(404);
             return;
         }
 
         const expires = await (user.resetPasswordExpires >= Date.now()) ? false : true;
 
         if (expires){
-            res.status(200).send({
-                message: 'Password reset token is expired.'
-            });
+            res.sendStatus(403);
             return;
         }
 
         user.password = require('bcrypt').hashSync(req.body.password, 10);
+        user.updateTime = new Date();
         user.resetPasswordToken = undefined;
         user.resetPasswordExpires = undefined;
 
         user.save();
         //sendMail2(user.email, 'Password Reset Confirmation', 'Your Password Has Changed!!');
-        res.status(200).send({
-            message: 'Password Reset Successfully!!'
-        });
+        res.sendStatus(200);
     } catch (err) {
-        res.sendStatus(200).send({
-            message: 'Error!!'
-        });
+        res.sendStatus(400);
     }
 }
 

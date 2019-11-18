@@ -56,7 +56,7 @@ app.post('/api/messages',handlers.auth,msgHandles.getMessagesHandler);
 
 //app.get('/api/verifyMail', mailHandles.verifyMail);
 //app.get('/api/passResetSucc', handlers.auth, mailHandles.passResetSucc)
-app.get('/api/forget', mailHandles.reqPassReset)
+app.post('/api/forget', mailHandles.reqPassReset)
 app.post('/api/updatePass', mailHandles.updatePass)
 
 module.exports = {

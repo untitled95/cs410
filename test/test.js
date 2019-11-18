@@ -556,8 +556,7 @@ describe('change password tests',()=>{
             email: "user1@test.com"
         })
         .then(((res)=>{
-            expect(res.statusCode).toBe(200);
-            expect(res.body.message).toBe('Incorrect Email Address...');
+            expect(res.statusCode).toBe(404);
             done();
         }))
     })
@@ -569,21 +568,19 @@ describe('change password tests',()=>{
             email: "user1@test.com"
         })
         .then(((res)=>{
-            expect(res.statusCode).toBe(200);
-            expect(res.body.message).toBe('Wrong user name!');
+            expect(res.statusCode).toBe(404);
             done();
         }))
     })
 
     test('user input correct email address',(done)=>{
-        request(app).get('/api/forget')
+        request(app).post('/api/forget')
         .send({
             username: "user2",
             email: "user2@test.com"
         })
         .then(((res)=>{
             expect(res.statusCode).toBe(200);
-            //expect(res.body.Token.length).toBe(1);
             changePassToken = res.body.Token;
             done();
         }))
@@ -596,8 +593,7 @@ describe('change password tests',()=>{
             password: "654321"
         })
         .then(((res)=>{
-            expect(res.statusCode).toBe(200);
-            expect(res.body.message).toBe('Invalid Token!.');
+            expect(res.statusCode).toBe(404);
             done();
         }))
     })
@@ -610,7 +606,6 @@ describe('change password tests',()=>{
         })
         .then(((res)=>{
             expect(res.statusCode).toBe(200);
-            expect(res.body.message).toBe('Password Reset Successfully!!');
             done();
         }))
     })
