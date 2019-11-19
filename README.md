@@ -52,6 +52,10 @@ nodemon server.js
 ```
 voilà, now you have the server running locally.
 
+- Run test
+```
+jest --coverage
+```
 # This is the temp documents for backend APIs.
 
 
