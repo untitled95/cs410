@@ -1,15 +1,66 @@
-# This is the temp documents for backend APIs.
-<div id="wow"></div>
+# How To Host This Backend On Your server
 
-`@url = http://localhost:80/api`
-This url should be replace with the real IP address
-`@json = Content-Type: application/json`
-All data should be sent though json format 
-The server would also sent back the data in json format.
-[show all users](###show all users)
+- Git clone this repo into your server
+
+- Make sure that your sever has Node.js installed. <br>
+https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-16-04 <br>
+This link will be really helpful for you to understand how to install Node.js on ubuntu server.  <br>
+After installation you can check by enter 
+```
+node -v 
+```
+It will showing something like
+```
+v12.12.0
+```
+It means you have sucessfully installed the Node.js.
+
+- Make sure that your server has MongoDB installed. <br>
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/ <br>
+This link will help you to understand how to install MongoDB on ubuntu server. <br>
+In case you want to use MongoDB atlas. You can change the uri in the app.js file to match the correct link to MongoDB atlas.
+
+- How to keep your server running even after you closed the terminal <br>
+For myself, I like using PM2 for running my Node.js app. <br>
+https://www.npmjs.com/package/pm2 <br> 
+```
+npm install pm2 -g
+```
+cd into the cs410 folder and 
+```
+pm2 start "server.js"
+```
+voilà, now you have the server running on your server.
+
+
+# How to use locally
+- Install Node.js
+- Install MongoDB
+- Run locally
+```
+node server.js
+```
+For my self I like using nodemon <br>
+https://www.npmjs.com/package/nodemon <br>
+It can auto compile after you made any change to your code. <br>
+```
+nodemon server.js
+```
+voilà, now you have the server running locally.
+
+# This is the temp documents for backend APIs.
+
+
+`@url = http://localhost:80/api` <br>
+This url should be replace with the real IP address <br>
+`@json = Content-Type: application/json` <br>
+All data should be sent though json format <br>
+The server would also sent back the data in json format. <br>
+
+[show all users](#show-all-users)
 
 ## The APIs without any login
-### show all users
+### show all users <a name = "show-all-users"/>
 This is only use for test purpose, do not use this API in the
 production environment
 `get {{url}}/users`
