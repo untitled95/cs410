@@ -36,6 +36,10 @@ voilà, now you have the server running on your server.
 # How to use locally
 - Install Node.js
 - Install MongoDB
+- Install dependence 
+```
+yarn install
+```
 - Run locally
 ```
 node server.js
