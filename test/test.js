@@ -556,7 +556,7 @@ describe('change password tests',()=>{
             email: "user1@test.com"
         })
         .then(((res)=>{
-            expect(res.statusCode).toBe(404);
+            expect(res.status).toBe(404);
             done();
         }))
     })
